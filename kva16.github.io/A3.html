@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A3 Visualizations</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Link to Google Fonts -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        body {
+            background-image: url('marineford3.jpg');
+            background-size: cover; 
+            background-repeat: no-repeat;
+            font-family: 'Roboto', sans-serif; 
+        }
+    </style>
+
+</head>
+<body>
+    <h2>A3 Visualizations</h2>
+
+    <div id="vis"></div>
+
+    <script src="vis.js"></script>
+
+
+
+    <div id="chart"></div>
+
+   <script src="https://cdn.jsdelivr.net/npm/vega@5.21.0"></script> <!-- Vega library -->
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.0"></script> <!-- Vega-Lite library -->
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script> <!-- Vega-Embed library -->
+
+    <script>
+        
+        const videogames = [
+            { genre: "Action", global_sales: 300 },
+            { genre: "Adventure", global_sales: 150 },
+            { genre: "Role-Playing", global_sales: 250 },
+            { genre: "Sports", global_sales: 400 },
+            { genre: "Puzzle", global_sales: 100 },
+            
+        ];
+
+       
+        const spec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "data": { "values": videogames },
+            "mark": "bar",
+            "encoding": {
+                "x": { "field": "genre", "type": "nominal" },
+                "y": { "aggregate": "sum", "field": "global_sales", "title": "Total Global Sales" },
+                "color": { "field": "genre", "type": "nominal" },
+                "tooltip": [
+                    { "field": "genre", "type": "nominal" },
+                    { "field": "global_sales", "type": "quantitative" }
+                ]
+            },
+            "width": 400,  
+            "height": 300  
+        };
+
+        
+        vegaEmbed('#vis', spec)
+            .then(function(result) {
+                
+            })
+            .catch(console.error); // Handle errors if any
+    </script>
+
+
+    <div class="container">
+        
+        <div class="movable-element3">
+            <button id="backToMain" onclick="window.location.href='index.html'">Back to Main Page</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</body>
+</html>
