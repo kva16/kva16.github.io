@@ -47,6 +47,12 @@
     left: 600px;                
 }
 
+.movable-element3 {
+    position: absolute;         
+    top: 500px;                 
+    left: 800px;                
+}
+
   
   
   header {
@@ -87,6 +93,21 @@
 
 
   #navigateButton {
+    background-color: #7448ed; 
+    border: none;              
+    color: white;              
+    padding: 15px 32px;        
+    text-align: center;       
+    text-decoration: none;    
+    display: inline-block;     
+    font-size: 16px;           
+    margin: 10px 2px;          
+    cursor: pointer;           
+    border-radius: 12px;      
+    transition: background-color 0.3s ease; 
+  }
+
+  #navigateButton2 {
     background-color: #7448ed; 
     border: none;              
     color: white;              
