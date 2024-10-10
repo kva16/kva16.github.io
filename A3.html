@@ -28,6 +28,37 @@
 
 
     <div id="chart"></div>
+    <div id="chart2"></div>
+    <div id="chart3"></div>
+    <div id="chart4"></div>
+    <div id="chart5"></div>
+
+    <style>
+        #chart2 {
+          position: relative;
+          
+          left: -25px; 
+        }
+      </style>
+
+<style>
+    #chart4 {
+      position: absolute;
+      top: 455px;  
+      left: 395px; 
+    }
+  </style>
+
+<style>
+    #chart5 {
+      position: absolute;
+      top: 183px;
+      left: 1025px; 
+    }
+  </style>
+
+
+
 
    <script src="https://cdn.jsdelivr.net/npm/vega@5.21.0"></script> <!-- Vega library -->
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.0"></script> <!-- Vega-Lite library -->
@@ -35,39 +66,176 @@
 
     <script>
         
-        const videogames = [
-            { genre: "Action", global_sales: 300 },
-            { genre: "Adventure", global_sales: 150 },
-            { genre: "Role-Playing", global_sales: 250 },
-            { genre: "Sports", global_sales: 400 },
-            { genre: "Puzzle", global_sales: 100 },
-            
-        ];
+    const vgSpec = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    data: {
+      url: "videogames_long.csv",  
+      format: {
+        type: "csv"  
+      }
+    },
+    mark: "bar",
+    encoding: {
+      x: { field: "genre", type: "nominal" },  
+      y: { aggregate: "sum", field: "global_sales", title: "Total Global Sales" }, 
+      tooltip: [{ field: "genre" }, { field: "global_sales", aggregate: "sum" }]
+    },
+    "title": "Q1-1: Total global sales by genre"
+  };
 
-       
-        const spec = {
-            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "data": { "values": videogames },
-            "mark": "bar",
-            "encoding": {
-                "x": { "field": "genre", "type": "nominal" },
-                "y": { "aggregate": "sum", "field": "global_sales", "title": "Total Global Sales" },
-                "color": { "field": "genre", "type": "nominal" },
-                "tooltip": [
-                    { "field": "genre", "type": "nominal" },
-                    { "field": "global_sales", "type": "quantitative" }
-                ]
-            },
-            "width": 400,  
-            "height": 300  
-        };
+  vegaEmbed("#chart", vgSpec).then(result => {
+    
+  }).catch(console.error);
+
+
+  
+
+  const vgSpec2 = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    data: {
+      url: "videogames_long.csv",  
+      format: {
+        type: "csv"  
+      }
+    },
+    mark: "bar",  // Bar chart
+  encoding: {
+    x: { field: "platform", type: "nominal", title: "Platform" },  // X-axis: Platform
+    y: { aggregate: "sum", field: "global_sales", type: "quantitative", title: "Total Global Sales" },  // Y-axis: Sum of global sales
+    tooltip: [  // Tooltip configuration
+      { field: "platform", title: "Platform" },
+      { aggregate: "sum", field: "global_sales", title: "Total Global Sales" }
+    ]
+  },
+  "title": "Q1-2: Total global sales by platform"
+};
+
+  vegaEmbed("#chart2", vgSpec2).then(result => {
+    
+  }).catch(console.error);
+
+
+  const vgSpec3 = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    data: {
+      url: "videogames_long.csv",  
+      format: {
+        type: "csv"  
+      }
+    },
+    "mark": "bar",  // Bar chart mark
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": "Year"
+    },
+    "y": {
+      "field": "global_sales",
+      "type": "quantitative",
+      "aggregate": "sum",
+      "title": "Global Sales (in millions)"
+    },
+    "color": {
+      "field": "platform",
+      "type": "nominal",
+      "title": "Platform"
+    },
+    "tooltip": [
+      {"field": "year", "type": "quantitative", "title": "Year"},
+      {"field": "platform", "type": "nominal", "title": "Platform"},
+      {"field": "global_sales", "type": "quantitative", "title": "Global Sales"}
+    ]
+  },
+  "title": "Q2: Sales over time by platform and genre"
+}
+
+  vegaEmbed("#chart3", vgSpec3).then(result => {
+    
+  }).catch(console.error);
+
+
+  const vgSpec4 = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    data: {
+      url: "videogames_long.csv",  
+      format: {
+        type: "csv"  
+      }
+    },
+    "mark": "line",  // Line chart mark
+  "encoding": {
+    "x": {
+      "field": "platform",
+      "type": "nominal",
+      "title": "Platform"
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "sales_amount",
+      "type": "quantitative",
+      "title": "Total Regional Sales (in Millions)"
+    },
+    "color": {
+      "field": "sales_region",
+      "type": "nominal",
+      "title": "Sales Region"
+    },
+    "tooltip": [
+      { "field": "platform", "type": "nominal", "title": "Platform" },
+      { "aggregate": "sum", "field": "sales_amount", "type": "quantitative", "title": "Total Regional Sales (in Millions)" },
+      { "field": "sales_region", "type": "nominal", "title": "Sales Region" }
+    ]
+  },
+  "title": "Q3: Regional Sales by Platform"
+}
+
+vegaEmbed("#chart4", vgSpec4).then(result => {
+    
+}).catch(console.error);
+
+
+const vgSpec5 = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    data: {
+      url: "videogames_long.csv",  
+      format: {
+        type: "csv"  
+      }
+    },
+    "mark": "point",  // Mark type is point for scatter plot
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "temporal",
+      "title": "Year"
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "global_sales",
+      "type": "quantitative",
+      "title": "Total Global Sales (millions)"
+    },
+    "color": {
+      "field": "genre",
+      "type": "nominal",
+      "title": "Genre"
+    },
+    "tooltip": [
+      { "field": "genre", "type": "nominal", "title": "Genre" },
+      { "field": "year", "type": "temporal", "title": "Year" },
+      { "aggregate": "sum", "field": "global_sales", "type": "quantitative", "title": "Total Global Sales (millions)" }
+    ]
+  },
+  "title": "Q4: Total Global Sales by Genre and Year"
+}
+
+  vegaEmbed("#chart5", vgSpec5).then(result => {
+    
+  }).catch(console.error);
+
 
         
-        vegaEmbed('#vis', spec)
-            .then(function(result) {
-                
-            })
-            .catch(console.error); // Handle errors if any
     </script>
 
 
